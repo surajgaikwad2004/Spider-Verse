@@ -10,7 +10,7 @@
 
 **A cinematic Marvel-inspired landing page with immersive 3D effects, interactive animations, and a dark futuristic UI — built entirely with vanilla web technologies.**
 
-[🌐 Live Demo](#) · [🐛 Report Bug](#) · [✨ Request Feature](#)
+[🌐 Live Demo](https://surajgaikwad2004.github.io/Spider-Verse/) · [🐛 Report Bug](#) · [✨ Request Feature](#)
 
 </div>
 
