@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spider-Man | Enter the Spider-Verse</title>
+
+  <!-- CDN Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ─── CUSTOM CURSOR ─── -->
+  <canvas id="cursor-trail-canvas"></canvas>
+  <svg id="cursor" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="10" stroke="#00f0ff" stroke-width="1.5" opacity="0.8"/>
+    <circle cx="12" cy="12" r="3" fill="#e63946"/>
+    <line x1="12" y1="2"  x2="12" y2="7"  stroke="#00f0ff" stroke-width="1.5"/>
+    <line x1="12" y1="17" x2="12" y2="22" stroke="#00f0ff" stroke-width="1.5"/>
+    <line x1="2"  y1="12" x2="7"  y2="12" stroke="#00f0ff" stroke-width="1.5"/>
+    <line x1="17" y1="12" x2="22" y2="12" stroke="#00f0ff" stroke-width="1.5"/>
+  </svg>
+
+  <!-- ─── WEB CANVAS (fixed overlay) ─── -->
+  <canvas id="web-canvas"></canvas>
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR
+  ════════════════════════════════════════════ -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <!-- Spider symbol SVG logo -->
+      <svg width="24" height="24" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" stroke="#e63946" stroke-width="2"/>
+        <ellipse cx="20" cy="20" rx="7"  ry="18" stroke="#e63946" stroke-width="1.5"/>
+        <ellipse cx="20" cy="20" rx="18" ry="7"  stroke="#e63946" stroke-width="1.5"/>
+        <line x1="20" y1="2"  x2="2"  y2="20" stroke="#e63946" stroke-width="1"/>
+        <line x1="20" y1="2"  x2="38" y2="20" stroke="#e63946" stroke-width="1"/>
+        <line x1="20" y1="38" x2="2"  y2="20" stroke="#e63946" stroke-width="1"/>
+        <line x1="20" y1="38" x2="38" y2="20" stroke="#e63946" stroke-width="1"/>
+        <circle cx="20" cy="20" r="3" fill="#e63946"/>
+      </svg>
+      SPIDER<span>.</span>VERSE
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#powers">Powers</a></li>
+      <li><a href="#characters">Spider-Verse</a></li>
+      <li><a href="#parallax-section">Gallery</a></li>
+      <li><a href="#footer">Contact</a></li>
+    </ul>
+
+    <div style="font-family:'Orbitron',sans-serif;font-size:0.65rem;color:#00f0ff;letter-spacing:0.2em;opacity:0.6;">
+      MARVEL • 2099
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HERO SECTION
+  ════════════════════════════════════════════ -->
+  <section id="hero">
+    <!-- Three.js renders into this canvas -->
+    <canvas id="hero-canvas"></canvas>
+
+    <div id="hero-content">
+      <p class="hero-eyebrow">Marvel Cinematic Universe</p>
+      <h1 class="hero-title">
+        <span class="line1">ENTER THE</span>
+        <span class="line2">SPIDER</span>
+        <span class="line3">VERSE</span>
+      </h1>
+      <p class="hero-sub">Anyone can wear the mask</p>
+      <a href="#powers" class="hero-btn">Explore the Multiverse</a>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-ind">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       POWERS SECTION
+  ════════════════════════════════════════════ -->
+  <section id="powers">
+    <div style="text-align:center;" class="reveal">
+      <p class="section-label">Abilities</p>
+      <h2 class="section-title">SPIDER <span class="accent">POWERS</span></h2>
+      <div class="divider"></div>
+      <p style="color:rgba(255,255,255,0.4);font-size:1rem;letter-spacing:0.1em;max-width:500px;margin:0 auto;">
+        The radioactive bite unlocked abilities beyond human comprehension
+      </p>
+    </div>
+
+    <div class="powers-grid">
+
+      <!-- Card 1: Super Strength -->
+      <div class="power-card reveal">
+        <div class="power-corner"></div>
+        <span class="power-icon">💪</span>
+        <div class="power-name">Super Strength</div>
+        <div class="power-desc">Capable of lifting over 10 tons with ease. Proportional strength of a spider scaled to human form.</div>
+        <div class="power-bar"><div class="power-fill" style="width:95%"></div></div>
+      </div>
+
+      <!-- Card 2: Spider Sense -->
+      <div class="power-card reveal" style="transition-delay:0.1s">
+        <div class="power-corner"></div>
+        <span class="power-icon">🕷️</span>
+        <div class="power-name">Spider Sense</div>
+        <div class="power-desc">Precognitive danger awareness that alerts to threats before they manifest. A sixth sense beyond time.</div>
+        <div class="power-bar"><div class="power-fill" style="width:88%"></div></div>
+      </div>
+
+      <!-- Card 3: Wall Crawling -->
+      <div class="power-card reveal" style="transition-delay:0.2s">
+        <div class="power-corner"></div>
+        <span class="power-icon">🧗</span>
+        <div class="power-name">Wall Crawling</div>
+        <div class="power-desc">Molecular adhesion on any surface. Fingertip control allows scaling skyscrapers and glass facades.</div>
+        <div class="power-bar"><div class="power-fill" style="width:100%"></div></div>
+      </div>
+
+      <!-- Card 4: Web Slinging -->
+      <div class="power-card reveal" style="transition-delay:0.3s">
+        <div class="power-corner"></div>
+        <span class="power-icon">🕸️</span>
+        <div class="power-name">Web Slinging</div>
+        <div class="power-desc">Custom-engineered bio-mechanical web fluid. Tensile strength exceeds steel cable of equivalent diameter.</div>
+        <div class="power-bar"><div class="power-fill" style="width:92%"></div></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SPIDER-VERSE CHARACTERS SECTION
+  ════════════════════════════════════════════ -->
+  <section id="characters">
+    <div style="text-align:center;" class="reveal">
+      <p class="section-label">The Multiverse</p>
+      <h2 class="section-title">SPIDER<span class="accent">-VERSE</span></h2>
+      <div class="divider"></div>
+      <p style="color:rgba(255,255,255,0.4);font-size:1rem;letter-spacing:0.1em;max-width:500px;margin:0 auto;">
+        Across the infinite web of realities, every version carries the weight of a city
+      </p>
+    </div>
+
+    <div class="chars-grid">
+
+      <!-- Peter Parker -->
+      <div class="char-card reveal">
+        <div class="char-inner">
+          <div class="char-front">
+            <div class="char-bg" style="background:linear-gradient(135deg,#1a0505 0%,#2d0a0a 50%,#0a0a1a 100%);">🕷️</div>
+            <div class="char-overlay">
+              <div class="char-name">Peter Parker</div>
+              <div class="char-universe">Earth-616</div>
+            </div>
+          </div>
+          <div class="char-back">
+            <div class="char-back-icon">🕷️</div>
+            <div class="char-back-name">THE AMAZING<br>SPIDER-MAN</div>
+            <div class="char-back-power">Neighborhood hero. The original.</div>
+            <div class="char-back-badge">Earth-616</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Miles Morales -->
+      <div class="char-card reveal" style="transition-delay:0.1s">
+        <div class="char-inner">
+          <div class="char-front">
+            <div class="char-bg" style="background:linear-gradient(135deg,#050a1a 0%,#0a0a2d 50%,#1a0505 100%);">🕸️</div>
+            <div class="char-overlay">
+              <div class="char-name">Miles Morales</div>
+              <div class="char-universe">Earth-1610</div>
+            </div>
+          </div>
+          <div class="char-back">
+            <div class="char-back-icon">🕸️</div>
+            <div class="char-back-name">SPIDER-MAN<br>MILES MORALES</div>
+            <div class="char-back-power">Venom Blast. Camouflage. Legacy.</div>
+            <div class="char-back-badge">Earth-1610</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spider-Gwen -->
+      <div class="char-card reveal" style="transition-delay:0.2s">
+        <div class="char-inner">
+          <div class="char-front">
+            <div class="char-bg" style="background:linear-gradient(135deg,#0a1a1a 0%,#1a0a1a 50%,#0a1a0a 100%);">🌸</div>
+            <div class="char-overlay">
+              <div class="char-name">Spider-Gwen</div>
+              <div class="char-universe">Earth-65</div>
+            </div>
+          </div>
+          <div class="char-back">
+            <div class="char-back-icon">🌸</div>
+            <div class="char-back-name">GHOST-SPIDER<br>GWEN STACY</div>
+            <div class="char-back-power">Dancer's grace. Spider's fury.</div>
+            <div class="char-back-badge">Earth-65</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spider-Man 2099 -->
+      <div class="char-card reveal" style="transition-delay:0.3s">
+        <div class="char-inner">
+          <div class="char-front">
+            <div class="char-bg" style="background:linear-gradient(135deg,#000a1a 0%,#001a2d 50%,#0a0a1a 100%);">🔵</div>
+            <div class="char-overlay">
+              <div class="char-name">Miguel O'Hara</div>
+              <div class="char-universe">Earth-928</div>
+            </div>
+          </div>
+          <div class="char-back">
+            <div class="char-back-icon">🔵</div>
+            <div class="char-back-name">SPIDER-MAN<br>2099</div>
+            <div class="char-back-power">Talons. Telepathy. Future tech.</div>
+            <div class="char-back-badge">Earth-928</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PARALLAX QUOTE SECTION
+  ════════════════════════════════════════════ -->
+  <section id="parallax-section">
+
+    <!-- Layer 1: City skyline -->
+    <div class="parallax-layer parallax-city">
+      <svg class="city-skyline" viewBox="0 0 1400 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <rect x="0"    y="100" width="80"  height="200"/>
+        <rect x="90"   y="60"  width="60"  height="240"/>
+        <rect x="160"  y="80"  width="100" height="220"/>
+        <rect x="270"  y="30"  width="70"  height="270"/>
+        <rect x="350"  y="90"  width="50"  height="210"/>
+        <rect x="410"  y="50"  width="90"  height="250"/>
+        <rect x="510"  y="20"  width="60"  height="280"/>
+        <rect x="580"  y="70"  width="80"  height="230"/>
+        <rect x="670"  y="40"  width="110" height="260"/>
+        <rect x="790"  y="80"  width="60"  height="220"/>
+        <rect x="860"  y="30"  width="85"  height="270"/>
+        <rect x="955"  y="60"  width="70"  height="240"/>
+        <rect x="1035" y="15"  width="90"  height="285"/>
+        <rect x="1135" y="50"  width="65"  height="250"/>
+        <rect x="1210" y="80"  width="100" height="220"/>
+        <rect x="1320" y="35"  width="80"  height="265"/>
+        <style>rect { fill: rgba(0,240,255,0.3); }</style>
+      </svg>
+    </div>
+
+    <!-- Layer 2: Quote text -->
+    <div class="parallax-text" data-parallax-speed="0.3">
+      <p class="section-label" style="text-align:center">The Philosophy</p>
+      <p class="parallax-quote">
+        "With great power<br>comes <em>great responsibility</em>"
+      </p>
+      <p style="color:rgba(255,255,255,0.3);font-size:0.85rem;letter-spacing:0.35em;text-transform:uppercase;margin-top:1.5rem;">
+        — Uncle Ben
+      </p>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════ -->
+  <footer id="footer">
+    <canvas id="footer-web-canvas"></canvas>
+
+    <div style="position:relative;z-index:1;">
+      <div class="footer-logo">SPIDER<span>.</span>VERSE</div>
+      <div class="footer-tagline">Protecting Every Universe Since 1962</div>
+
+      <div class="footer-socials">
+        <!-- GitHub -->
+        <a href="#" class="social-btn" title="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+        </a>
+        <!-- Instagram -->
+        <a href="#" class="social-btn" title="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor"/>
+          </svg>
+        </a>
+        <!-- Twitter / X -->
+        <a href="#" class="social-btn" title="Twitter">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="footer-copy">© 2099 Spider-Verse. All rights reserved across the multiverse.</div>
+    </div>
+  </footer>
+
+  <!-- Custom Script (loaded last so DOM is ready) -->
+  <script src="script.js"></script>
+
+</body>
+</html>
